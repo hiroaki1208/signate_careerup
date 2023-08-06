@@ -20,4 +20,4 @@ set -euC
 # conda activate env2
 
 # python ${BASE_DIR}/run.py -s ${SUBFOLDER} -p ${PARAM}
-python ${BASE_DIR}/run.py
+python ${BASE_DIR}/main.py
