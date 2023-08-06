@@ -8,6 +8,7 @@ import logging.config
 import lib.util_func as util_func
 # import models.create_covisit
 import src.cleansing as cleansing
+import src.model as model
 
 DATA_DIR = os.getenv('DATA_DIR')
 OUTPUT_DIR = os.getenv('OUTPUT_DIR')
@@ -66,21 +67,13 @@ def main():
         # logging.info(f'(param)is_partial: {args.is_partial}')
         # logging.info(f'(param)covisitation setting: {args.covisit}')
 
-        # 特徴量
+        # cleansing
         cleansing.main(args.execution_type)
 
-        # # create model
-        # # co-visitaion
-        # CoVisitaion = models.create_covisit.CreateCoVisitaion(
-        #     param, TYPE_LABEL
-        #     )
-        # CoVisitaion.main()
+        # create model or prediction
+        if args.execution_type == 'validateion':
+            model.main(args.execution_type)
 
-        # prediction
-        # Prediction = src.prediction.CreatePrediction(
-        #     param, TYPE_LABEL, args.param_idx
-        #     )
-        # Prediction.main()
 
         util_func.print_log(f'end: {base_dir}')    
     except Exception as e:

@@ -28,6 +28,19 @@ def _fill_nan(df):
     df = df.fillna( df.mode().iloc[0] )
     return df
 
+def _one_hot_encoding(df):
+    '''One Hot Encoding'''
+    adds = []
+    for c in df.columns:
+        if df[c].dtype == 'object':
+            add = pd.get_dummies(df[c])
+            add.columns = [f'{c}_{i}' for i in add.columns]
+        else:
+            add = df[[c]]
+
+        adds.append(add)
+    return pd.concat(adds, axis=1)
+
 def _save_data(exe_type, df):
     '''save cleansed data'''
 
@@ -47,4 +60,5 @@ def main(exe_type):
 
     df = _load_data(exe_type)
     df = _fill_nan(df)
+    df = _one_hot_encoding(df)
     _save_data(exe_type, df)
