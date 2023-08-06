@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import os, sys
 
 from sklearn.ensemble import RandomForestRegressor
@@ -52,18 +53,15 @@ def _prediction(df):
     # 保存したモデルをロードする
     clf = pickle.load(open(path, 'rb'))
 
-    # # save score
-    # score = clf.score(y_train, y_test)
-    # score = pd.DataFrame([score], index=['r2_score'])
-    # path = os.path.join(OUTPUT_DIR, 'score.csv')
-    # score.to_csv(path)
+    pred = clf.predict(df)
+    sub = df[['id']].copy()
+    sub['pred'] = pred
+    sub.columns = np.arange(2)
+    print(sub.isnull().sum().sum())
 
-    # # save feature importance
-    # path = os.path.join(OUTPUT_DIR, 'feature_importance.csv')
-    # feature_names = list( X_train.columns )
-    # importances = clf.feature_importances_
-    # forest_importances = pd.Series(importances, index=feature_names)
-    # forest_importances.to_csv(path)
+    # save submission
+    path = os.path.join(OUTPUT_DIR, 'submission.csv')
+    sub.to_csv(path)
 
 def main(exe_type):
 

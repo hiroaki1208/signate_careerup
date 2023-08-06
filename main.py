@@ -9,6 +9,7 @@ import lib.util_func as util_func
 # import models.create_covisit
 import src.cleansing as cleansing
 import src.model as model
+import src.prediction as prediction
 
 DATA_DIR = os.getenv('DATA_DIR')
 OUTPUT_DIR = os.getenv('OUTPUT_DIR')
@@ -73,7 +74,8 @@ def main():
         # create model or prediction
         if args.execution_type == 'validateion':
             model.main(args.execution_type)
-
+        elif args.execution_type == 'configuration':
+            prediction.main(args.execution_type)
 
         util_func.print_log(f'end: {base_dir}')    
     except Exception as e:
