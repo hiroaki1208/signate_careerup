@@ -3,6 +3,7 @@
 export DATA_DIR="$(pwd)/data"
 export OUTPUT_DIR="$(pwd)/output"
 # export LOG_DIR="$(pwd)/logs"
+export LIB_DIR="$(pwd)/lib"
 export CONFIG_DIR="$(pwd)/configs"
 export SRC_DIR="$(pwd)/src"
 

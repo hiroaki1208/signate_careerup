@@ -7,7 +7,7 @@ import logging.config
 
 import lib.util_func as util_func
 # import models.create_covisit
-# import src.prediction
+import src.cleansing as cleansing
 
 DATA_DIR = os.getenv('DATA_DIR')
 OUTPUT_DIR = os.getenv('OUTPUT_DIR')
@@ -39,12 +39,13 @@ def main():
     )
     util_func.print_log(f'start: {base_dir}')    
 
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument('-s', '--subfolder')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-e', '--execution_type', default='validation', choices=['validation', 'configuration'])
     # parser.add_argument('-p', '--param_idx', default='param0'
     #                     , help= 'parameter index', type=str
     #                     )
-    # args = parser.parse_args()
+    args = parser.parse_args()
+    util_func.print_log(f'execution_type: {args.execution_type}')    
 
     # # parameter設定yml読み込み
     # param = _load_config_file(args.param_idx)
@@ -66,6 +67,8 @@ def main():
         # logging.info(f'(param)covisitation setting: {args.covisit}')
 
         # 特徴量
+        cleansing.main(args.execution_type)
+
         # # create model
         # # co-visitaion
         # CoVisitaion = models.create_covisit.CreateCoVisitaion(
